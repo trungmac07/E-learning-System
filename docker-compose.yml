@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # -------------------------
+  # Course DB
+  # -------------------------
+  course-db:
+    image: postgres:15
+    container_name: course-db
+    environment:
+      POSTGRES_DB: course
+      POSTGRES_USER: course
+      POSTGRES_PASSWORD: course
+    ports:
+      - "5433:5432"   # map local 5433 → container 5432
+    volumes:
+      - course-data:/var/lib/postgresql/data
+
+  # -------------------------
+  # Course Service
+  # -------------------------
+  course-service:
+    build: ./elearning-course-service
+    container_name: elearning-course-service
+    depends_on:
+      - course-db
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://course-db:5432/course
+      SPRING_DATASOURCE_USERNAME: course
+      SPRING_DATASOURCE_PASSWORD: course
+    ports:
+      - "8080:8080"
+
+  # -------------------------
+  # Student DB
+  # -------------------------
+  student-db:
+    image: postgres:15
+    container_name: student-db
+    environment:
+      POSTGRES_DB: student
+      POSTGRES_USER: student
+      POSTGRES_PASSWORD: student
+    ports:
+      - "5434:5432"   # map local 5434 → container 5432
+    volumes:
+      - student-data:/var/lib/postgresql/data
+
+  # -------------------------
+  # Student Service
+  # -------------------------
+  student-service:
+    build: ./elearning-student-service
+    container_name: elearning-student-service
+    depends_on:
+      - student-db
+      - keycloak
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://student-db:5432/student
+      SPRING_DATASOURCE_USERNAME: student
+      SPRING_DATASOURCE_PASSWORD: student
+
+      # Keycloak integration (example vars)
+      KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8080/realms/elearning
+      KEYCLOAK_REALM: elearning
+      KEYCLOAK_RESOURCE: student-service
+      KEYCLOAK_PUBLIC_CLIENT: true
+      KEYCLOAK_CLIENT_SECRET: student-service-secret-key
+    ports:
+      - "8081:8080"
+
+  # -------------------------
+  # Keycloak
+  # -------------------------
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.6
+    container_name: keycloak
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+    volumes:
+      - ./elearning-keycloak/keycloak.json:/opt/keycloak/data/import/realm.json
+    ports:
+      - "8082:8080"
+    depends_on:
+      - keycloak-db
+
+  # -------------------------
+  # Keycloak DB
+  # -------------------------
+  keycloak-db:
+    image: postgres:15
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - keycloak-data:/var/lib/postgresql/data
+
+
+# -------------------------
+# Volumes
+# -------------------------
+volumes:
+  course-data:
+  student-data:
+  keycloak-data:
+

@@ -1,0 +1,3 @@
+com/student/entity/Student.class
+com/student/StudentServiceApplication.class
+com/student/repository/StudentRepository.class

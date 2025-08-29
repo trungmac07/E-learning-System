@@ -1,0 +1,96 @@
+{
+    "realm": "elearning",
+    "enabled": true,
+    "users": [
+      {
+        "username": "admin1",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Admin",
+        "lastName": "User",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "admin1",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["admin"]
+      },
+      {
+        "username": "trung",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Trung",
+        "lastName": "Mac",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "welcome",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["student"]
+      },
+      {
+        "username": "teacher",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Tea",
+        "lastName": "Cher",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "teacher",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["teacher"]
+      },
+      {
+        "username": "student",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Stu",
+        "lastName": "Dent",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "student",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["student"]
+      }
+    ],
+    "clients": [
+      {
+        "clientId": "student-service",
+        "secret": "student-service-secret-key",
+        "enabled": true,
+        "publicClient": false,
+        "protocol": "openid-connect",
+        "redirectUris": [
+          "http://localhost:8081/*"
+        ],
+        "webOrigins": ["*"]
+      }
+    ],
+    "roles": {
+      "realm": [
+        {
+          "name": "student",
+          "description": "Student role"
+        },
+        {
+            "name": "teacher",
+            "description": "Teacher role"
+        },
+        {
+          "name": "admin",
+          "description": "Administrator role"
+        }
+      ]
+    }
+  }
+  
