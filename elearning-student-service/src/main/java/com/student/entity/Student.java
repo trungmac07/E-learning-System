@@ -19,10 +19,10 @@ public class Student {
     private Long id; // local DB PK
 
     @Column(nullable = false, unique = true)
-    private String keycloakId; // maps to Keycloak user UUID
-    private String username;   // sync with Keycloak
+    private String keycloakId; 
+    private String username;  
     private String email;
-    private String role;       // optional, but usually taken from Keycloak
+    private String role;      
     private String fullName;
     private Boolean gender; //0 male - 1 female
 }
