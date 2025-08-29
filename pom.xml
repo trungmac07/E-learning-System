@@ -12,34 +12,20 @@
     <name>Elearning Platform</name>
 
     <modules>
-        <module>shared</module>
-        <module>student-service</module>
-        <module>course-service</module>
+        <module>elearning-student-service</module>
+        <module>elearning-course-service</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version>
-        <relativePath/> <!-- look up parent in repository -->
+        <version>3.5.5</version>
+        <relativePath/>
     </parent>
 
     <properties>
         <java.version>17</java.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Ensures all submodules use same Spring Boot version -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <pluginManagement>
