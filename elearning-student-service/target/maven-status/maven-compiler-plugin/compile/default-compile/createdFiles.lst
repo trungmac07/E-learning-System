@@ -1,5 +1,0 @@
-com/student/entity/Student.class
-com/student/controller/StudentController.class
-com/student/StudentServiceApplication.class
-com/student/repository/StudentRepository.class
-com/student/service/StudentService.class
