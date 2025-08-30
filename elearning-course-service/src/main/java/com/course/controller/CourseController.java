@@ -2,7 +2,9 @@ package com.course.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,7 @@ import com.course.service.CourseService;
 @RequestMapping("/api/courses")
 public class CourseController {
 
+    @Autowired
     private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
@@ -27,6 +30,7 @@ public class CourseController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
         return ResponseEntity.ok(courseService.saveCourse(course));
     }
@@ -44,12 +48,14 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
     }
     
     @PostMapping("/{courseId}/quizzes")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
     public ResponseEntity<Quiz> addQuiz(@PathVariable Long courseId, @RequestBody Quiz quiz) {
         Quiz savedQuiz = courseService.addQuizToCourse(courseId, quiz);
         return ResponseEntity.ok(savedQuiz);

@@ -50,6 +50,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Shared Keycloak Authentication -->
+        <dependency>
+            <groupId>com.elearning</groupId>
+            <artifactId>elearning-shared-service</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

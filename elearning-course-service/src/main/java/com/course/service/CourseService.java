@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.course.entity.Course;
 import com.course.entity.Question;
@@ -13,6 +14,7 @@ import com.course.repository.QuestionRepository;
 import com.course.repository.QuizRepository;
 
 @Service
+@Transactional
 public class CourseService {
 
     private final CourseRepository courseRepository;

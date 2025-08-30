@@ -1,4 +1,4 @@
-package com.student.config;
+package com.auth.config;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +33,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/teacher/**").hasAnyRole("TEACHER", "ADMIN")
                 .requestMatchers("/api/student/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                .requestMatchers("/api/courses/**").permitAll()
+                .requestMatchers("/api/quizzes/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                .requestMatchers("/api/questions/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2
