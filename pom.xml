@@ -12,6 +12,7 @@
     <name>Elearning Platform</name>
 
     <modules>
+        <module>elearning-shared</module>
         <module>elearning-student-service</module>
         <module>elearning-course-service</module>
     </modules>

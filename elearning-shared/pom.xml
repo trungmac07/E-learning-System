@@ -11,7 +11,7 @@
       <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>elearning-student-service</artifactId>
+  <artifactId>elearning-shared-service</artifactId>
   <packaging>jar</packaging>
 
   <properties>
@@ -27,24 +27,12 @@
       </dependency>
       <dependency>
           <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-data-jpa</artifactId>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-security</artifactId>
       </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
     </dependency>
-
-
-      <!-- PostgreSQL -->
-      <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <scope>runtime</scope>
-      </dependency>
 
       <!-- Lombok -->
       <dependency>
@@ -60,20 +48,28 @@
           <scope>test</scope>
       </dependency>
 
-        <!-- Shared Keycloak Authentication -->
-        <dependency>
-            <groupId>com.elearning</groupId>
-            <artifactId>elearning-shared-service</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+      <!-- Keycloak -->
+      <dependency>
+          <groupId>org.keycloak</groupId>
+          <artifactId>keycloak-spring-boot-starter</artifactId>
+          <version>22.0.5</version>
+      </dependency>
+      <dependency>
+          <groupId>org.keycloak</groupId>
+          <artifactId>keycloak-admin-client</artifactId>
+          <version>22.0.5</version>
+      </dependency>
   </dependencies>
 
-  <build>
-      <plugins>
-          <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-          </plugin>
-      </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
