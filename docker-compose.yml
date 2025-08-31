@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: course
       POSTGRES_PASSWORD: course
     ports:
-      - "5433:5432"   # map local 5433 → container 5432
+      - "5433:5432"  
     volumes:
       - course-data:/var/lib/postgresql/data
 
@@ -43,7 +43,7 @@ services:
       POSTGRES_USER: student
       POSTGRES_PASSWORD: student
     ports:
-      - "5434:5432"   # map local 5434 → container 5432
+      - "5434:5432"
     volumes:
       - student-data:/var/lib/postgresql/data
 
@@ -61,8 +61,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://student-db:5432/student
       SPRING_DATASOURCE_USERNAME: student
       SPRING_DATASOURCE_PASSWORD: student
-
-      # Keycloak integration (example vars)
       KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8080/realms/elearning
       KEYCLOAK_REALM: elearning
       KEYCLOAK_RESOURCE: student-service
@@ -70,6 +68,37 @@ services:
       KEYCLOAK_CLIENT_SECRET: student-service-secret-key
     ports:
       - "8081:8080"
+  # -------------------------
+  # Enrollment DB
+  # -------------------------
+  enrollment-db:
+    image: postgres:15
+    container_name: enrollment-db
+    environment:
+      POSTGRES_DB: enrollment
+      POSTGRES_USER: enrollment
+      POSTGRES_PASSWORD: enrollment
+    ports:
+      - "5435:5432"
+    volumes:
+      - enrollment-data:/var/lib/postgresql/data
+
+  # -------------------------
+  # Enrollment Service
+  # -------------------------
+  enrollment-service:
+    build: ./elearning-enrollment-service
+    container_name: elearning-enrollment-service
+    depends_on:
+      - enrollment-db
+      - keycloak
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://enrollment-db:5432/enrollment
+      SPRING_DATASOURCE_USERNAME: enrollment
+      SPRING_DATASOURCE_PASSWORD: enrollment
+    ports:
+      - "8082:8080"
 
   # -------------------------
   # Keycloak
@@ -88,7 +117,7 @@ services:
     volumes:
       - ./elearning-keycloak/keycloak.json:/opt/keycloak/data/import/realm.json
     ports:
-      - "8082:8080"
+      - "9000:8080"
     depends_on:
       - keycloak-db
 
@@ -112,5 +141,6 @@ services:
 volumes:
   course-data:
   student-data:
+  enrollment-data:
   keycloak-data:
 

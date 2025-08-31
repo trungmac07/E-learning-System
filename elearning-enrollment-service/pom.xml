@@ -11,7 +11,7 @@
       <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>elearning-student-service</artifactId>
+  <artifactId>elearning-enrollment-service</artifactId>
   <packaging>jar</packaging>
 
   <properties>
@@ -72,6 +72,7 @@
             <artifactId>javax.annotation-api</artifactId>
             <version>1.2</version>
         </dependency>
+        
         <!-- gRPC & protobuf -->
         <dependency>
             <groupId>io.grpc</groupId>
@@ -92,10 +93,10 @@
 
   <build>
       <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+          <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+          </plugin>
       </plugins>
   </build>
 </project>

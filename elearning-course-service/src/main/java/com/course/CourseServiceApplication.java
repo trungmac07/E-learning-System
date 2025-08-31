@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(com.auth.config.SecurityConfig.class)
+@Import(shared.auth.config.SecurityConfig.class)
 public class CourseServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(CourseServiceApplication.class, args);
