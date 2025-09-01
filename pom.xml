@@ -13,7 +13,7 @@
 
     <modules>
         <module>elearning-shared</module>
-        <module>elearning-student-service</module>
+        <module>elearning-user-service</module>
         <module>elearning-course-service</module>
         <module>elearning-enrollment-service</module>
     </modules>

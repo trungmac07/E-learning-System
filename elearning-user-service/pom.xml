@@ -11,7 +11,7 @@
       <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>elearning-student-service</artifactId>
+  <artifactId>elearning-user-service</artifactId>
   <packaging>jar</packaging>
 
   <properties>

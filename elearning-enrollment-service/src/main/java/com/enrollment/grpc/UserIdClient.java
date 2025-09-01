@@ -6,19 +6,19 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import shared.grpc.studentId.grpc.InternalIdResponse;
 import shared.grpc.studentId.grpc.KeycloakIdRequest;
-import shared.grpc.studentId.grpc.StudentIdServiceGrpc;
+import shared.grpc.studentId.grpc.UserIdServiceGrpc;
 
 @Service
-public class StudentIdClient {
+public class UserIdClient {
 
-    private final StudentIdServiceGrpc.StudentIdServiceBlockingStub stub;
+    private final UserIdServiceGrpc.UserIdServiceBlockingStub stub;
 
-    public StudentIdClient() {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("student-service", 9091)
+    public UserIdClient() {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("user-service", 9091)
                 .usePlaintext()
                 .build();
 
-        stub = StudentIdServiceGrpc.newBlockingStub(channel);
+        stub = UserIdServiceGrpc.newBlockingStub(channel);
     }
 
     public Long getInternalId(String keycloakId) {

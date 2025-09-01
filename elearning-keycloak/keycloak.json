@@ -1,96 +1,114 @@
 {
-    "realm": "elearning",
-    "enabled": true,
-    "users": [
+  "realm": "elearning",
+  "enabled": true,
+  "roles": {
+    "realm": [
       {
-        "username": "admin1",
-        "enabled": true,
-        "emailVerified": false,
-        "firstName": "Admin",
-        "lastName": "User",
-        "credentials": [
-          {
-            "type": "password",
-            "value": "admin1",
-            "temporary": false
-          }
-        ],
-        "realmRoles": ["admin"]
+        "name": "student",
+        "description": "Student role"
       },
       {
-        "username": "trung",
-        "enabled": true,
-        "emailVerified": false,
-        "firstName": "Trung",
-        "lastName": "Mac",
-        "credentials": [
-          {
-            "type": "password",
-            "value": "welcome",
-            "temporary": false
-          }
-        ],
-        "realmRoles": ["student"]
+        "name": "teacher",
+        "description": "Teacher role"
       },
       {
-        "username": "teacher",
-        "enabled": true,
-        "emailVerified": false,
-        "firstName": "Tea",
-        "lastName": "Cher",
-        "credentials": [
-          {
-            "type": "password",
-            "value": "teacher",
-            "temporary": false
-          }
-        ],
-        "realmRoles": ["teacher"]
-      },
-      {
-        "username": "student",
-        "enabled": true,
-        "emailVerified": false,
-        "firstName": "Stu",
-        "lastName": "Dent",
-        "credentials": [
-          {
-            "type": "password",
-            "value": "student",
-            "temporary": false
-          }
-        ],
-        "realmRoles": ["student"]
+        "name": "admin",
+        "description": "Administrator role"
       }
-    ],
-    "clients": [
-      {
-        "clientId": "student-service",
-        "secret": "student-service-secret-key",
-        "enabled": true,
-        "publicClient": false,
-        "protocol": "openid-connect",
-        "redirectUris": [
-          "http://localhost:8081/*"
-        ],
-        "webOrigins": ["*"]
-      }
-    ],
-    "roles": {
-      "realm": [
+    ]
+  },
+  "users": [
+    {
+      "username": "admin1",
+      "enabled": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin1@elearning.com",
+      "credentials": [
         {
-          "name": "student",
-          "description": "Student role"
-        },
-        {
-            "name": "teacher",
-            "description": "Teacher role"
-        },
-        {
-          "name": "admin",
-          "description": "Administrator role"
+          "type": "password",
+          "value": "admin1",
+          "temporary": false
         }
-      ]
+      ],
+      "realmRoles": ["admin"],
+      "attributes": {
+        "role": "admin",
+        "fullName": "Admin User",
+        "gender": "0"
+      }
+    },
+    {
+      "username": "trung",
+      "enabled": true,
+      "firstName": "Trung",
+      "lastName": "Mac",
+      "email": "trung@elearning.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "welcome",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["student"],
+      "attributes": {
+        "role": "student",
+        "fullName": "Trung Mac",
+        "gender": "0"
+      }
+    },
+    {
+      "username": "teacher",
+      "enabled": true,
+      "firstName": "Tea",
+      "lastName": "Cher",
+      "email": "teacher@elearning.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "teacher",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["teacher"],
+      "attributes": {
+        "role": "teacher",
+        "fullName": "Tea Cher",
+        "gender": "1",
+        "department": "Computer Science"
+      }
+    },
+    {
+      "username": "student",
+      "enabled": true,
+      "firstName": "Stu",
+      "lastName": "Dent",
+      "email": "student@elearning.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "student",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["student"],
+      "attributes": {
+        "role": "student",
+        "fullName": "Stu Dent",
+        "gender": "1"
+      }
     }
-  }
-  
+  ],
+  "clients": [
+    {
+      "clientId": "student-service",
+      "secret": "student-service-secret-key",
+      "enabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:8081/*"],
+      "webOrigins": ["*"]
+    }
+  ]
+}

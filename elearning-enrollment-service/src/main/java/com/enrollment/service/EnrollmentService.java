@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.enrollment.entity.Enrollment;
-import com.enrollment.grpc.StudentIdClient;
+import com.enrollment.grpc.UserIdClient;
 import com.enrollment.repository.EnrollmentRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class EnrollmentService {
     @Autowired
     private EnrollmentRepository enrollmentRepository;
     @Autowired
-    private StudentIdClient studentIdClient;
+    private UserIdClient userIdClient;
 
     public List<Enrollment> getAllEnrollments() {
         return enrollmentRepository.findAll();
@@ -29,13 +29,13 @@ public class EnrollmentService {
         
         if (authentication.getPrincipal() instanceof Jwt jwt) {
             String keycloakId = jwt.getSubject();
-            Long studentId = studentIdClient.getInternalId(keycloakId);
+            Long userId = userIdClient.getInternalId(keycloakId);
 
-            if (enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
+            if (enrollmentRepository.existsByCourseIdAndStudentId(courseId, userId)) {
                 throw new IllegalStateException("Student already enrolled in this course!");
             }
             Enrollment enrollment = new Enrollment();
-            enrollment.setStudentId(studentId);
+            enrollment.setStudentId(userId);
             enrollment.setCourseId(courseId);
     
             enrollmentRepository.save(enrollment);
@@ -45,10 +45,10 @@ public class EnrollmentService {
         throw new RuntimeException("Invalid authentication token");
     }
 
-    public void unenrollStudent(Long studentId, Long courseId) {
+    public void unenrollStudent(Long userId, Long courseId) {
 
         Enrollment enrollment = enrollmentRepository
-                .findByCourseIdAndStudentId(courseId, studentId)
+                .findByCourseIdAndStudentId(courseId, userId)
                 .orElseThrow(() -> new IllegalStateException("Student did not enroll for this course!"));
 
         enrollmentRepository.delete(enrollment);

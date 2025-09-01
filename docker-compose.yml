@@ -35,37 +35,37 @@ services:
   # -------------------------
   # Student DB
   # -------------------------
-  student-db:
+  user-db:
     image: postgres:15
-    container_name: student-db
+    container_name: user-db
     environment:
-      POSTGRES_DB: student
-      POSTGRES_USER: student
-      POSTGRES_PASSWORD: student
+      POSTGRES_DB: user
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
     ports:
       - "5434:5432"
     volumes:
-      - student-data:/var/lib/postgresql/data
+      - user-data:/var/lib/postgresql/data
 
   # -------------------------
   # Student Service
   # -------------------------
-  student-service:
-    build: ./elearning-student-service
-    container_name: elearning-student-service
+  user-service:
+    build: ./elearning-user-service
+    container_name: elearning-user-service
     depends_on:
-      - student-db
+      - user-db
       - keycloak
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://student-db:5432/student
-      SPRING_DATASOURCE_USERNAME: student
-      SPRING_DATASOURCE_PASSWORD: student
+      SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/user
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: user
       KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8080/realms/elearning
       KEYCLOAK_REALM: elearning
-      KEYCLOAK_RESOURCE: student-service
+      KEYCLOAK_RESOURCE: user-service
       KEYCLOAK_PUBLIC_CLIENT: true
-      KEYCLOAK_CLIENT_SECRET: student-service-secret-key
+      KEYCLOAK_CLIENT_SECRET: user-service-secret-key
     ports:
       - "8081:8080"
   # -------------------------
@@ -140,7 +140,7 @@ services:
 # -------------------------
 volumes:
   course-data:
-  student-data:
+  user-data:
   enrollment-data:
   keycloak-data:
 
