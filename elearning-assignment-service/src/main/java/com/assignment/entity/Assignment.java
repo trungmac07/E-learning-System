@@ -1,4 +1,4 @@
-package com.enrollment.entity;
+package com.assignment.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
-    name = "enrollment",
+    name = "assignment",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"course_id", "student_id"})
+        @UniqueConstraint(columnNames = {"course_id", "teacher_id"})
     }
 )
-public class Enrollment {
+public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // local DB PK
 
     private Long courseId;
-    private Long studentId;
+    private Long teacherId;
 }

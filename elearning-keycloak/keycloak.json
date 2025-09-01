@@ -102,8 +102,8 @@
   ],
   "clients": [
     {
-      "clientId": "student-service",
-      "secret": "student-service-secret-key",
+      "clientId": "user-service",
+      "secret": "user-service-secret-key",
       "enabled": true,
       "publicClient": false,
       "protocol": "openid-connect",

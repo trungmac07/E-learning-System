@@ -44,4 +44,4 @@ spring:
             client-secret: ${KEYCLOAK_CLIENT_SECRET}
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/myrealm
+            issuer-uri: http://keycloak:8080/realms/myrealm

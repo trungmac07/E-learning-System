@@ -8,9 +8,9 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: jdbc:postgresql://localhost:5433/student
-    username: student
-    password: student
+    url: jdbc:postgresql://localhost:5435/assignment
+    username: assignment
+    password: assignment
   jpa:
     hibernate:
       ddl-auto: update   # options: none, validate, update, create, create-drop
@@ -25,9 +25,9 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://student-db:5432/student
-    username: student
-    password: student
+    url: jdbc:postgresql://assignment-db:5432/assignment
+    username: assignment
+    password: assignment
   jpa:
     hibernate:
       ddl-auto: update   # options: none, validate, update, create, create-drop

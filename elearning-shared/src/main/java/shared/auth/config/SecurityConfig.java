@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/quizzes/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .requestMatchers("/api/questions/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .requestMatchers("/api/enrollment/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                .requestMatchers("/api/assignment/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

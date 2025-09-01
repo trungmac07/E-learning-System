@@ -16,6 +16,7 @@
         <module>elearning-user-service</module>
         <module>elearning-course-service</module>
         <module>elearning-enrollment-service</module>
+        <module>elearning-assignment-service</module>
     </modules>
 
     <parent>

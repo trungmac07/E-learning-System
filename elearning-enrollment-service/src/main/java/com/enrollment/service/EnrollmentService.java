@@ -45,13 +45,22 @@ public class EnrollmentService {
         throw new RuntimeException("Invalid authentication token");
     }
 
-    public void unenrollStudent(Long userId, Long courseId) {
+    public void unenrollStudent(Authentication authentication, Long courseId) {
+        
+        if (authentication.getPrincipal() instanceof Jwt jwt) {
+            String keycloakId = jwt.getSubject();
+            Long userId = userIdClient.getInternalId(keycloakId);
 
-        Enrollment enrollment = enrollmentRepository
-                .findByCourseIdAndStudentId(courseId, userId)
-                .orElseThrow(() -> new IllegalStateException("Student did not enroll for this course!"));
+            if (! enrollmentRepository.existsByCourseIdAndStudentId(courseId, userId)) {
+                throw new IllegalStateException("Student already enrolled in this course!");
+            }
+            Enrollment enrollment = new Enrollment();
+            enrollment.setStudentId(userId);
+            enrollment.setCourseId(courseId);
+    
+            enrollmentRepository.delete(enrollment);
 
-        enrollmentRepository.delete(enrollment);
-
+        }
+        throw new RuntimeException("Invalid authentication token");
     }
 }

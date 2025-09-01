@@ -99,7 +99,37 @@ services:
       SPRING_DATASOURCE_PASSWORD: enrollment
     ports:
       - "8082:8080"
+  # -------------------------
+  # Enrollment DB
+  # -------------------------
+  assignment-db:
+    image: postgres:15
+    container_name: assignment-db
+    environment:
+      POSTGRES_DB: assignment
+      POSTGRES_USER: assignment
+      POSTGRES_PASSWORD: assignment
+    ports:
+      - "5436:5432"
+    volumes:
+      - assignment-data:/var/lib/postgresql/data
 
+  # -------------------------
+  # Enrollment Service
+  # -------------------------
+  assignment-service:
+    build: ./elearning-assignment-service
+    container_name: elearning-assignment-service
+    depends_on:
+      - assignment-db
+      - keycloak
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://assignment-db:5432/assignment
+      SPRING_DATASOURCE_USERNAME: assignment
+      SPRING_DATASOURCE_PASSWORD: assignment
+    ports:
+      - "8083:8080"
   # -------------------------
   # Keycloak
   # -------------------------
@@ -142,5 +172,6 @@ volumes:
   course-data:
   user-data:
   enrollment-data:
+  assignment-data:
   keycloak-data:
 

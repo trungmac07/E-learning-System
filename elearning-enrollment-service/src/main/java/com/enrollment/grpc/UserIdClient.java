@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import shared.grpc.studentId.grpc.InternalIdResponse;
-import shared.grpc.studentId.grpc.KeycloakIdRequest;
-import shared.grpc.studentId.grpc.UserIdServiceGrpc;
+import shared.grpc.userId.grpc.InternalIdResponse;
+import shared.grpc.userId.grpc.KeycloakIdRequest;
+import shared.grpc.userId.grpc.UserIdServiceGrpc;
 
 @Service
 public class UserIdClient {

@@ -1,50 +1,49 @@
-package com.enrollment.controller;
+package com.assignment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.enrollment.dto.EnrollmentDto;
-import com.enrollment.entity.Enrollment;
-import com.enrollment.service.EnrollmentService;
+import com.assignment.dto.AssignmentDto;
+import com.assignment.entity.Assignment;
+import com.assignment.service.AssignmentService;
 
 @RestController
-@RequestMapping("/api/enrollment")
-public class EnrollmentController {
+@RequestMapping("/api/assignment")
+public class AssignmentController {
 
     @Autowired
-    private EnrollmentService enrollmentService;
+    private AssignmentService assignmentService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
-    public ResponseEntity<?> enrollStudent(@RequestBody EnrollmentDto enrollmentdto, Authentication authentication)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> assignTeacher(@RequestBody AssignmentDto assignmentdto)
     {
         try {
-            Enrollment enrollment = enrollmentService.enrollStudent(
-                authentication, 
-                enrollmentdto.getCourseId()
+            Assignment assignment = assignmentService.assignTeacher(
+                assignmentdto.getTeacherId(), 
+                assignmentdto.getCourseId()
             );
-            return ResponseEntity.ok(enrollment);
+            return ResponseEntity.ok(assignment);
         } catch (IllegalStateException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
-    public ResponseEntity<?> unenrollStudent(@RequestBody EnrollmentDto enrollmentdto, Authentication authentication)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> unassignTeacher(@RequestBody AssignmentDto assignmentdto)
     {
         try {
-            enrollmentService.unenrollStudent(
-                authentication, 
-                enrollmentdto.getCourseId()
+            assignmentService.unassignTeacher(
+                assignmentdto.getTeacherId(), 
+                assignmentdto.getCourseId()
             );
             return ResponseEntity.noContent().build();
         } catch (IllegalStateException e) {
