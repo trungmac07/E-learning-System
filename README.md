@@ -46,7 +46,7 @@ It demonstrates integration of authentication, inter-service communication, and 
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/yourusername/e-learning-system.git](https://github.com/trungmac07/E-learning-System.git)
+git clone https://github.com/yourusername/e-learning-system.git
 cd e-learning-system
 mvn clean install
 docker-compose up --build
